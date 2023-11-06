@@ -45,7 +45,7 @@ In MATLAB, navigate to the WalkingChamberCodeBase folder and run: RunPipeline.m
 A copy of the dataset is located in [Dropbox](https://www.dropbox.com/scl/fo/mrb8kk4do4w3978crhwkq/h?rlkey=rqgapxeakzw9kndago72m509c&dl=0)\
 Please download the data and place the subfolders into the Data folder: 2023_CL062_Tao_Bhandawat/DMDCodeBase/Data/
 
-In MATLAB, navigate to the DMDCodeBase folder and run: RunPipeline.m\
+In MATLAB, navigate to the DMDCodeBase folder and run: RunPipeline.m
 
 Note 1: The MATLAB code creates multipage postscript analysis figure files. To convert postscript to pdf, you can use adobe or [ghostscript](https://www.ghostscript.com/)\
 Note 2: We will add an automatic download script for getting the data into the appropriate folders in the future.
