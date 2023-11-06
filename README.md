@@ -11,8 +11,8 @@ There are 3 repositories:
 2. The WalkingChamberCodeBase contains the MATLAB code used to analyze the freely walking behaviour in the mirror chamber.
 3. The Connectomics folder contains the R and MATLAB code used to perform connectomics analysis.
 
-These code was written using:
-MATLAB r2022a
+These code was written using:\
+MATLAB r2022a\
 RStudio (R v4.1.1)
 
 	You will need the following list of add ons in MATLAB (forthcoming)
