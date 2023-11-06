@@ -20,10 +20,10 @@ if ~exist(figFolder, 'dir')
     mkdir(figFolder)
 end
 dateAnalyzed = '091923';
-figureFile = [figFolder '3D tracked position of fly_' dateAnalyzed];
 
 close all
-load(processedDataFName,'meta','Data','body','wings')
+load(['Data/' processedDataFName],'meta','Data','body','wings')
+%figureFile = [figFolder '3D tracked position of fly_' dateAnalyzed];
 %fNum = plotXYZPosition(Data.bodyPts_xyz,meta.stim.FileName,meta.flyID,figureFile);
 %saveFigureRaster(figureFile,fNum);
 
@@ -57,94 +57,6 @@ meta.baselineSubtract = true;
 meta.cond = 'sem';%'average';%'sem';%std
 meta.plotRampComp = true;
 meta.plotAllTraces = true;
-
-%% body elevation angle
-close all
-obs_allFlies = body.abdomen_elevation;
-meta.ylim = [-5 10];%meta.ylim = [-65 -40];
-[~,~,~,fNum] = plotObs(obs_allFlies,meta);
-for f = 1:fNum
-    figure(f);sgtitle('abdomen elevation angle (degrees)')
-end
-figureFile = [figFolder 'abdomenElevationAngle_sem_' dateAnalyzed];
-saveFigure(figureFile,fNum);
-
-%% body azumith angle
-close all
-obs_allFlies = body.abdomen_azimuth;
-meta.ylim = [-5 5];%meta.ylim = [-15 15];
-[~,~,~,fNum] = plotObs(obs_allFlies,meta);
-for f = 1:fNum
-    figure(f);sgtitle('abdomen azumith angle (degrees)')
-end
-figureFile = [figFolder 'abdomenAzumithAngle_sem_' dateAnalyzed];
-saveFigure(figureFile,fNum);
-
-%% body angle
-close all
-obs_allFlies = body.bodyAngle;
-meta.ylim = [-5 10];%meta.ylim = [120 140];
-[~,~,~,fNum] = plotObs(obs_allFlies,meta);
-for f = 1:fNum
-    figure(f);sgtitle('body angle (degrees)')
-end
-figureFile = [figFolder 'bodyAngle_sem_' dateAnalyzed];
-saveFigure(figureFile,fNum);
-
-%% curvature
-close all
-obs_allFlies = body.curv_global;
-meta.ylim = [-0.2 0.2];%meta.ylim = [-0.2 0.2];
-[~,~,~,fNum] = plotObs(obs_allFlies,meta);
-for f = 1:fNum
-    figure(f);sgtitle('curvature (degrees)')
-end
-figureFile = [figFolder 'curvature_sem_' dateAnalyzed];
-saveFigure(figureFile,fNum);
-
-%% left elevation angle
-close all
-obs_allFlies = wings.leftWing.elevation;
-meta.ylim = [-5 10];%meta.ylim = [-0.05 0.2];
-[~,~,~,fNum] = plotObs(obs_allFlies,meta);
-for f = 1:fNum
-    figure(f);sgtitle('left wing elevation angle (degrees)')
-end
-figureFile = [figFolder 'leftElevationAngle_sem_' dateAnalyzed];
-saveFigure(figureFile,fNum);
-
-%% left azimuth angle
-close all
-obs_allFlies = wings.leftWing.azimuth;
-meta.ylim = [-5 15];%meta.ylim = [-0.05 0.2];
-[~,~,~,fNum] = plotObs(obs_allFlies,meta);
-for f = 1:fNum
-    figure(f);sgtitle('left wing azimuth angle (degrees)')
-end
-figureFile = [figFolder 'leftAzimuthAngle_sem_' dateAnalyzed];
-saveFigure(figureFile,fNum);
-
-%% right elevation angle
-close all
-obs_allFlies = wings.rightWing.elevation;
-meta.ylim = [-5 10];%meta.ylim = [-0.05 0.2];
-[~,~,~,fNum] = plotObs(obs_allFlies,meta);
-for f = 1:fNum
-    figure(f);sgtitle('right wing elevation angle (degrees)')
-end
-figureFile = [figFolder 'rightElevationAngle_sem_' dateAnalyzed];
-saveFigure(figureFile,fNum);
-
-%% right azimuth angle
-close all
-obs_allFlies = wings.rightWing.azimuth;
-meta.ylim = [-5 15];%meta.ylim = [-0.05 0.2];
-[~,~,~,fNum] = plotObs(obs_allFlies,meta);
-for f = 1:fNum
-    figure(f);sgtitle('right wing azimuth angle (degrees)')
-end
-figureFile = [figFolder 'rightAzimuthAngle_sem_' dateAnalyzed];
-saveFigure(figureFile,fNum);
 
 %% wingspan
 close all
@@ -207,4 +119,94 @@ for i = 1:fNum
     exportgraphics(figure(i),[figureFile '.pdf'],'Append',true,'BackgroundColor','none','ContentType','image','resolution',300)%vector
 end
 end
+
+
+%%% unused
+% %% body elevation angle
+% close all
+% obs_allFlies = body.abdomen_elevation;
+% meta.ylim = [-5 10];%meta.ylim = [-65 -40];
+% [~,~,~,fNum] = plotObs(obs_allFlies,meta);
+% for f = 1:fNum
+%     figure(f);sgtitle('abdomen elevation angle (degrees)')
+% end
+% figureFile = [figFolder 'abdomenElevationAngle_sem_' dateAnalyzed];
+% saveFigure(figureFile,fNum);
+% 
+% %% body azumith angle
+% close all
+% obs_allFlies = body.abdomen_azimuth;
+% meta.ylim = [-5 5];%meta.ylim = [-15 15];
+% [~,~,~,fNum] = plotObs(obs_allFlies,meta);
+% for f = 1:fNum
+%     figure(f);sgtitle('abdomen azumith angle (degrees)')
+% end
+% figureFile = [figFolder 'abdomenAzumithAngle_sem_' dateAnalyzed];
+% saveFigure(figureFile,fNum);
+% 
+% %% body angle
+% close all
+% obs_allFlies = body.bodyAngle;
+% meta.ylim = [-5 10];%meta.ylim = [120 140];
+% [~,~,~,fNum] = plotObs(obs_allFlies,meta);
+% for f = 1:fNum
+%     figure(f);sgtitle('body angle (degrees)')
+% end
+% figureFile = [figFolder 'bodyAngle_sem_' dateAnalyzed];
+% saveFigure(figureFile,fNum);
+% 
+% %% curvature
+% close all
+% obs_allFlies = body.curv_global;
+% meta.ylim = [-0.2 0.2];%meta.ylim = [-0.2 0.2];
+% [~,~,~,fNum] = plotObs(obs_allFlies,meta);
+% for f = 1:fNum
+%     figure(f);sgtitle('curvature (degrees)')
+% end
+% figureFile = [figFolder 'curvature_sem_' dateAnalyzed];
+% saveFigure(figureFile,fNum);
+% 
+% %% left elevation angle
+% close all
+% obs_allFlies = wings.leftWing.elevation;
+% meta.ylim = [-5 10];%meta.ylim = [-0.05 0.2];
+% [~,~,~,fNum] = plotObs(obs_allFlies,meta);
+% for f = 1:fNum
+%     figure(f);sgtitle('left wing elevation angle (degrees)')
+% end
+% figureFile = [figFolder 'leftElevationAngle_sem_' dateAnalyzed];
+% saveFigure(figureFile,fNum);
+% 
+% %% left azimuth angle
+% close all
+% obs_allFlies = wings.leftWing.azimuth;
+% meta.ylim = [-5 15];%meta.ylim = [-0.05 0.2];
+% [~,~,~,fNum] = plotObs(obs_allFlies,meta);
+% for f = 1:fNum
+%     figure(f);sgtitle('left wing azimuth angle (degrees)')
+% end
+% figureFile = [figFolder 'leftAzimuthAngle_sem_' dateAnalyzed];
+% saveFigure(figureFile,fNum);
+% 
+% %% right elevation angle
+% close all
+% obs_allFlies = wings.rightWing.elevation;
+% meta.ylim = [-5 10];%meta.ylim = [-0.05 0.2];
+% [~,~,~,fNum] = plotObs(obs_allFlies,meta);
+% for f = 1:fNum
+%     figure(f);sgtitle('right wing elevation angle (degrees)')
+% end
+% figureFile = [figFolder 'rightElevationAngle_sem_' dateAnalyzed];
+% saveFigure(figureFile,fNum);
+% 
+% %% right azimuth angle
+% close all
+% obs_allFlies = wings.rightWing.azimuth;
+% meta.ylim = [-5 15];%meta.ylim = [-0.05 0.2];
+% [~,~,~,fNum] = plotObs(obs_allFlies,meta);
+% for f = 1:fNum
+%     figure(f);sgtitle('right wing azimuth angle (degrees)')
+% end
+% figureFile = [figFolder 'rightAzimuthAngle_sem_' dateAnalyzed];
+% saveFigure(figureFile,fNum);
 
