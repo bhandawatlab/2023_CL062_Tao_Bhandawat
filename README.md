@@ -1,4 +1,5 @@
 
+
 # 2023_CL062_Tao_Bhandawat
 
 2023_CL062_Tao_Bhandawat contains the MATLAB code that accompanies the paper: "Neurons underlying aggressive actions that are shared by both males and females in Drosophila."
@@ -6,28 +7,28 @@
 
 ## Getting Started
 There are 3 repositories:
-The DMDCodeBase folder contains the MATLAB code used to analyze the head fixed DMD optogenetics experiments.\
-The WalkingChamberCodeBase contains the MATLAB code used to analyze the freely walking behaviour in the mirror chamber.\
-The Connectomics folder contains the R and MATLAB code used to perform connectomics analysis.
+1. The DMDCodeBase folder contains the MATLAB code used to analyze the head fixed DMD optogenetics experiments.\
+2. The WalkingChamberCodeBase contains the MATLAB code used to analyze the freely walking behaviour in the mirror chamber.\
+3. The Connectomics folder contains the R and MATLAB code used to perform connectomics analysis.
 
 These code was written using:
 MATLAB r2022a
 RStudio (R v4.1.1)
 
-You will need the following list of add ons in MATLAB (forthcoming)
-1. tbd
-2. 
+	You will need the following list of add ons in MATLAB (forthcoming)
+	1. tbd
+	2. 
 
-You will need to install (if not already installed) the following list packages on RStudio
-1. Community packages for working with flywire and hemibrain data:
-	a. natverse, reticulate, neuprintr, hemibrainr, nat, natverse, nat.jrcbrains, fafbseg
-2. RConnectomicsAnalysis (note that this is just located within this folder)
-3. reticulate (to interface with python)
-4. R.matlab (to interface with MATLAB)
-5. Plotting packages
-	a. pracma, lsa, pheatmap, ComplexHeatmap, RColorBrewer, gridExtra, 
-6. Other useful packages
-	a. progress, bit64, pracma
+	You will need to install (if not already installed) the following list packages on RStudio
+	1. Community packages for working with flywire and hemibrain data:
+		a. natverse, reticulate, neuprintr, hemibrainr, nat, natverse, nat.jrcbrains, fafbseg
+	2. RConnectomicsAnalysis (note that this is just located within this folder)
+	3. reticulate (to interface with python)
+	4. R.matlab (to interface with MATLAB)
+	5. Plotting packages
+		a. pracma, lsa, pheatmap, ComplexHeatmap, RColorBrewer, gridExtra, 
+	6. Other useful packages
+		a. progress, bit64, pracma
 
 To get started, please download or clone the GitHub repository
 ```shell
