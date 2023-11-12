@@ -1,7 +1,7 @@
 function [first2PCs] = PCA_DN_analysis()
 addpath(genpath('Utils'));
 clear;close all;
-dataLoc = 'C:\Users\LabAdmin\Desktop\Connectomics\Liangyu\CL062_project\RConnectomicsAnalysis\Data\';
+dataLoc = [pwd '\RConnectomicsAnalysis\Data\'];
 dataFile = 'CL_aIPg_pC1_2ndOrderConn.mat';
 load([dataLoc dataFile],'effDF_singleNeuron','inpN','inpN_hemisphere','inpN_type','outN','outN_hemisphere');
 
@@ -97,6 +97,9 @@ xlabel('sorted DN');ylabel('r (loading in PC1/2)');
 first2PCs.DN_names = vbls(ndx);
 first2PCs.DN_clusters = kmeans(theta(topNLoadings)',3);
 first2PCs.DN_heispheres = vbls_hemi(ndx);
+if not(isfolder('RConnectomicsAnalysis\Figures\CL_aIPg_pC1_toDN\'))
+    mkdir('RConnectomicsAnalysis\Figures\CL_aIPg_pC1_toDN\')
+end
 print('-painters','-dpdf','RConnectomicsAnalysis\Figures\CL_aIPg_pC1_toDN\PCA_analysis.pdf');
 
 end

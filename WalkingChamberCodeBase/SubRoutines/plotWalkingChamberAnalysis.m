@@ -1,8 +1,5 @@
 function [] = plotWalkingChamberAnalysis(dataset,params,dataset2Comp,figureFile)
 close all
-JAABA_folder = 'C:\Users\lt532\Desktop\Aggression Project\JAABA Stuff\JAABA-master\MirrorChamberData\';
-
-d = dir(JAABA_folder);d(1:2) = [];
 WT_Thresh = 45;
 WT_angle_Thresh = 10;
 wingExt_Thresh = 35;

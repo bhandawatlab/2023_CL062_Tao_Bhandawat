@@ -1,15 +1,5 @@
 function [] = plotMotorElementAnalysis(dataset,params,figureFile)
 close all
-JAABA_folder = 'C:\Users\lt532\Desktop\Aggression Project\JAABA Stuff\JAABA-master\MirrorChamberData\';
-
-d = dir(JAABA_folder);d(1:2) = [];
-JAABA_subfolder = {d.name}';
-lunge_thresh = 3;
-wingThreat_Thresh = 45;
-wingExt_Thresh = 45;
-
-stopThresh = 1;
-jumpThresh = 40;
 
 nGenotype = numel(dataset);
 fs = params.fs(1);
@@ -17,7 +7,7 @@ yl = {[0 2],[0 0.5], [0 15],[0 15],[10 50], [10 50],[150 180],[10 30],[0 15],[-4
     [-180 180],[-180 180],[-180 180],[0 50], [0 50],[10 50], [10 50]};
 units = {'mm','norm','mm/s','mm/s','deg','deg','deg','deg','mm/s','norm','mm'...
     ,'deg','deg','deg','deg','deg','deg','deg'};
-nObs = 8;
+%nObs = 8;
 smoothFun = @(x) medfilt1([repmat(x(:,2),1,2) x repmat(x(:,end-1),1,2)],1,[],2);% smooth interval is 1, so actually not smoothed
 obs2Cons = {1,2,4,5,6,[5,6],[15,16],[17,18],8,11};%,7
 
