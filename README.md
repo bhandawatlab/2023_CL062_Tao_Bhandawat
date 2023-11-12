@@ -7,9 +7,9 @@
 
 
 ## Getting Started
-**There are 3 repositories:**
+**There are 3 folders:**
 1. The DMDCodeBase folder contains the MATLAB code used to analyze the head fixed DMD optogenetics experiments.
-2. The WalkingChamberCodeBase contains the MATLAB code used to analyze the freely walking behaviour in the mirror chamber.
+2. The WalkingChamberCodeBase folder contains the MATLAB code used to analyze the freely walking behaviour in the mirror chamber.
 3. The Connectomics folder contains the R and MATLAB code used to perform connectomics analysis.
 
 
