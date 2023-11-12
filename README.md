@@ -65,7 +65,7 @@ In RStudio, navigate to the Connectomics folder
 3. To run the analysis regarding connections from aSPg to CL062, aIPg, and pC1 neurons: ```aSP_to_CL_aIPg_pC1_analysis.R```
 4. To run the PCA and SVM analysis regarding connections from CL062, aIPg, and pC1 neurons to DNs: ```PCA_DN_analysis.m```
 
-Note 1: The MATLAB code creates multipage postscript analysis figure files. To convert postscript to pdf, you can use adobe or [ghostscript](https://www.ghostscript.com/)\
+Note 1: The MATLAB code creates multipage postscript analysis figure files. To convert postscript to pdf, you can use adobe or [ghostscript](https://www.ghostscript.com/)
 
 
 ## Other Data location
