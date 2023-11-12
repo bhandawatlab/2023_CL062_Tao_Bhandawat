@@ -24,7 +24,7 @@ RStudio (R v4.1.1)
 4.  Statistics and Machine Learning Toolbox
 
 
-**You will need to install (if not already installed) the following list of packages on RStudio**
+**You will need to install the following list of packages on RStudio**
 1. Community packages for working with flywire and hemibrain data:
 		a. natverse, reticulate, neuprintr, hemibrainr, nat, natverse, nat.jrcbrains, fafbseg
 2. RConnectomicsAnalysis (note that this is just located within this folder)
