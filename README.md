@@ -40,7 +40,7 @@ To get started, please download or clone the GitHub repository
 $ git clone https://github.com/bhandawatlab/2023_CL062_Tao_Bhandawat.git
 ```
 
-To download the data, please navigate to the 2023_CL062_Tao_Bhandawat directory and run: ```DownloadData.m```
+To download the data, please navigate to the **2023_CL062_Tao_Bhandawat** directory and run: ```DownloadData.m```
 If this doesn't work, then please manually download the data and place it in the correct folders (see below)
 
 ### WalkingChamberCodeBase
