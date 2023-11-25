@@ -3,7 +3,7 @@
 
 # 2023_CL062_Tao_Bhandawat
 
-2023_CL062_Tao_Bhandawat contains the MATLAB code that accompanies the paper: "Neurons underlying aggressive actions that are shared by both males and females in Drosophila."
+2023_CL062_Tao_Bhandawat contains the MATLAB code that accompanies the paper: "Neurons underlying aggressive actions that are shared by both males and females in *Drosophila*."
 
 
 ## Getting Started
@@ -21,19 +21,19 @@ RStudio (R v4.1.1)
 1. Curve Fitting Toolbox
 2. Image Processing Toolbox
 3. Signal Processing Toolbox
-4.  Statistics and Machine Learning Toolbox
+4. Statistics and Machine Learning Toolbox
 
 
 **You will need to install the following list of packages on RStudio**
-1. Community packages for working with flywire and hemibrain data:
-		a. natverse, reticulate, neuprintr, hemibrainr, nat, natverse, nat.jrcbrains, fafbseg
+1. Community packages for working with flywire and hemibrain data:\
+	a. natverse, reticulate, neuprintr, hemibrainr, nat, natverse, nat.jrcbrains, fafbseg
 2. RConnectomicsAnalysis (note that this is just located within this folder)
 3. reticulate (to interface with python)
 4. R.matlab (to interface with MATLAB)
-5. Plotting packages
-		a. pracma, lsa, pheatmap, ComplexHeatmap, RColorBrewer, gridExtra, 
-6. Other useful packages
-		a. progress, bit64, pracma
+5. Plotting packages:\
+   	a. pracma, lsa, pheatmap, ComplexHeatmap, RColorBrewer, gridExtra
+6. Other useful packages:\
+	a. progress, bit64, pracma
 
 To get started, please download or clone the GitHub repository
 ```shell
@@ -63,9 +63,9 @@ In RStudio, navigate to the Connectomics folder
 1. To run the analysis regarding connections from CL062, aIPg, and pC1 neurons to DNs: ```CL_aIPg_pC1_toDN_analysis.R```
 2. To run the analysis regarding connections from CL062, aIPg, and pC1 neurons to each other: ```CL_aIPg_pC1_connections_analysis.R```
 3. To run the analysis regarding connections from aSPg to CL062, aIPg, and pC1 neurons: ```aSP_to_CL_aIPg_pC1_analysis.R```
-4. To run the PCA and SVM analysis regarding connections from CL062, aIPg, and pC1 neurons to DNs: ```PCA_DN_analysis.m```
 
-Note 1: The MATLAB code creates multipage postscript analysis figure files. To convert postscript to pdf, you can use adobe or [ghostscript](https://www.ghostscript.com/)
+In Matlab, navigate to the Connectomics folder
+1. To run the PCA and SVM analysis regarding connections from CL062, aIPg, and pC1 neurons to DNs: ```PCA_DN_analysis.m```
 
 
 ## Other Data location
@@ -77,6 +77,10 @@ The DeepLabCut models can be found here [DLC](https://www.dropbox.com/scl/fo/v6v
 
 ## General Information
 
+**Note 1:** The MATLAB code creates multipage postscript analysis figure files. To convert postscript to pdf, you can use adobe or [ghostscript](https://www.ghostscript.com/)\
+<br/>
+**Note 2:** The figures for each of the WalkingChamberCodeBase and DMDCodeBase analysis will be located in the Figures subfolder.\
+The figures for the Connectomics analysis will be located in: 2023_CL062_Tao_Bhandawat/Connectomics/RConnectomicsAnalysis/Figures/
 
 ## Authors and Citation
 
