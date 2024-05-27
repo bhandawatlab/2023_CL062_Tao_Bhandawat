@@ -1,5 +1,6 @@
 library(natverse);library(reticulate);library(neuprintr); library(hemibrainr); library(nat); library(natverse); library(nat.jrcbrains); library(fafbseg);
-library(RConnectomicsAnalysis)
+setwd(getSrcDirectory(function(){})[1])# set the working directory to where this code is
+source("Connectomics_functions.R")#library(RConnectomicsAnalysis)
 #
 # ### plotting packages
 # library(pheatmap);library(ComplexHeatmap);library(pracma);library(zoo);library(lsa)
@@ -12,7 +13,7 @@ library(pheatmap);library(RColorBrewer);library(gridExtra);
 #### from CL, aIPg, and pC1 to DNs
 # load in neurotransmitter data
 if (!exists("adjFW")){
-  load(file = paste("Data\\adjacencyDataFilesToDN\\All_data_062923.RData", sep = ""))
+  load(file = paste("Data\\adjacencyDataFiles\\All_data_050824.RData", sep = ""))
 }
 # location where IDs are stored
 ID_fold = "Data\\Flywire_IDs\\"
@@ -22,7 +23,7 @@ if (!dir.exists(figFileLoc)){
 }
 
 # set the input neuron list
-ndx<-which(neurList_type %in% c('CL','aIPg1','aIpg2','aIpg3','pC1a','pC1b','pC1c','pC1d','pC1e'))
+ndx<-which(neurList_type %in% c('CL','aIPg1','aIpg2','aIpg3','aIpg4','aIpga','pC1a','pC1b','pC1c','pC1d','pC1e'))
 inpN = neurList[ndx]
 inpN_type=neurList_type[ndx]
 inpN_hemisphere=neurList_hemisphere[ndx]
@@ -72,6 +73,9 @@ DN_ndx<-(colnames(adjFW)%in%unlist(unique(DN)))
 nonDN_postsynaptic<-matrix(adjFW[CL_ndx,!DN_ndx][adjFW[CL_ndx,!DN_ndx] != 0])
 DN_postsynaptic<-matrix(adjFW[CL_ndx,DN_ndx][adjFW[CL_ndx,DN_ndx] != 0])
 
+meanDNConnCount = mean(rowSums(effDF_singleNeuronCL>=10))
+proportionDNs = sum(DN_postsynaptic)/(sum(DN_postsynaptic)+sum(nonDN_postsynaptic))
+
 # plot distribution of connections to DNs vs non-DNs
 h_DN = hist(DN_postsynaptic,breaks=c(seq(0, 100, length.out = 21)),plot=FALSE)
 h_non = hist(nonDN_postsynaptic,breaks=c(seq(0, 100, length.out = 21)),plot=FALSE)
@@ -115,9 +119,9 @@ row.names(annLabels) <- colnames(allNeuron_COSSim)
 #goodNdx = rowSums(is.na(allNeuron_COSSim)) < nNeuron
 allNeuron_COSSim_noNan <- allNeuron_COSSim[goodNdx,goodNdx]
 annLabels_noNan<-annLabels[goodNdx,]
-cc = brewer.pal(9,"Set1")
-annoColor<-list(neuronType=c(CL=cc[1], aIPg1=cc[2], aIpg2=cc[3], aIpg3=cc[4],
-                             pC1a=cc[5], pC1b=cc[6], pC1c=cc[7], pC1d=cc[8], pC1e=cc[9]),
+cc = brewer.pal(11,"Set3")
+annoColor<-list(neuronType=c(CL=cc[1], aIPg1=cc[2], aIpg2=cc[3], aIpg3=cc[4],aIpg4=cc[5],aIpga = cc[6],
+                             pC1a=cc[7], pC1b=cc[8], pC1c=cc[9], pC1d=cc[10], pC1e=cc[11]),
                 hemisphere=c(R="black",L="#FB9A99"))
 
 print(pheatmap(as.matrix(allNeuron_COSSim_noNan),cluster_rows = TRUE,cluster_cols = TRUE,
@@ -133,7 +137,7 @@ print(pheatmap(as.matrix(allNeuron_COSSim_noNan),cluster_rows = TRUE,cluster_col
 # combine all aIPg into one color and don't consider pc1a/b/c
 pC1abcde_ndx = annLabels_noNan$neuronType%in%c("pC1a","pC1b","pC1c","pC1d","pC1e")
 
-annoColor<-list(neuronType=c(CL=cc[1], aIPg1=cc[2], aIpg2=cc[2], aIpg3=cc[2],
+annoColor<-list(neuronType=c(CL=cc[1], aIPg1=cc[2], aIpg2=cc[2], aIpg3=cc[2], aIpg4=cc[2], aIpga=cc[2],
                             pC1d=cc[3], pC1e=cc[4]),
                 hemisphere=c(R="black",L="#FB9A99"))
 
@@ -149,9 +153,9 @@ print(pheatmap(as.matrix(allNeuron_COSSim_noNan[!pC1abcde_ndx,!pC1abcde_ndx]),cl
 dev.off()
 
 ### PCA analysis in Matlab
-# writeMat("Data\\CL_aIPg_pC1_2ndOrderConn.mat", effDF_singleNeuron = effDF_singleNeuron,
-#          inpN = unlist(inpN), inpN_type = rep(inpN_type, lengths(inpN_hemisphere)),
-#          inpN_hemisphere = unlist(inpN_hemisphere), outN = outN, outN_hemisphere = outN_hemisphere)
+writeMat("Data\\CL_aIPg_pC1_2ndOrderConn.mat", effDF_singleNeuron = effDF_singleNeuron,
+         inpN = unlist(inpN), inpN_type = rep(inpN_type, lengths(inpN_hemisphere)),
+         inpN_hemisphere = unlist(inpN_hemisphere), outN = outN, outN_hemisphere = outN_hemisphere)
 
 
 #### CL cosine similarity
@@ -204,17 +208,22 @@ my_heatmap <- pheatmap(as.matrix(CL_COSSim),cluster_rows = TRUE,cluster_cols = T
                        show_rownames = TRUE,show_colnames = TRUE,
                        fontsize=5,cutree_rows = nClust,cutree_cols = nClust, breaks = seq(0, 1, length.out = 100))
 
-# plot the cosine similarity
-ht=draw(my_heatmap)
+mtmp <- cbind(as.matrix(CL_COSSim),cluster = cutree(my_heatmap$tree_row,k = nClust))
+clusterNdx = cutree(my_heatmap$tree_row, k = nClust)
+cluster_sorted<-unique(clusterNdx[my_heatmap$tree_row$order])
+clusterNdx[my_heatmap$tree_row$order]
 
-# get the clusters from the heatmap clustering
-clusterNdx<-row_order(ht)
+# # plot the cosine similarity
+# ht=draw(my_heatmap)
+# # get the clusters from the heatmap clustering
+# clusterNdx<-row_order(ht)
 
 # calculate average connections of each cluster to each DN
 cluster_effDF = matrix(0,nClust,nDN)
 colnames(cluster_effDF) = colnames(effDF_singleNeuronCL)
 for (k in 1:nClust){
-  cluster_effDF[k,] = colSums(effDF_singleNeuronCL[clusterNdx[[k]],],na.rm = TRUE)/length(clusterNdx[[k]])
+  #cluster_effDF[k,] = colSums(effDF_singleNeuronCL[clusterNdx[[k]],],na.rm = TRUE)/length(clusterNdx[[k]])
+  cluster_effDF[k,] = colSums(effDF_singleNeuronCL[clusterNdx==cluster_sorted[k],],na.rm = TRUE)/sum(clusterNdx==cluster_sorted[k])
 }
 
 # plot the sorted distribution in connections to DNs based on cluster
@@ -235,8 +244,8 @@ for (thresh in thresh2Cons){
 
 # plot the distribution of ipsilateral and contralateral connections
 thresh = 20
-DN_fru=flywire_latestid(strsplit(readLines(paste(ID_fold,"root_ids_class_equal_DN_and_Labels_equal_fru.txt", sep = "")),',')[[1]])
-DN_dsx=flywire_latestid(strsplit(readLines(paste(ID_fold,"root_ids_class_equal_DN_and_Labels_equal_dsx.txt", sep = "")),',')[[1]])
+DN_fru=flywire_latestid(strsplit(readLines(paste(ID_fold,"root_ids_super_class_equal_descending_and_gene_equal_Fruitless.txt", sep = "")),',')[[1]])
+DN_dsx=flywire_latestid(strsplit(readLines(paste(ID_fold,"root_ids_super_class_equal_descending_and_gene_equal_Doublesex.txt", sep = "")),',')[[1]])
 fru_DN_cluster = matrix(0,1,nClust)
 dsx_DN_cluster = matrix(0,1,nClust)
 fru_DN_name = c()
@@ -291,15 +300,15 @@ plotNeurons(currNeurons=Cluster2_3_DN_name,dns_skel=dns_skel_Cluster2_3,col_vect
 rgl.snapshot(paste(figFileLoc,"Cluster2_3DNs","_",thresh,".png", sep = ""), fmt = 'png')
 
 plotNeurons(currNeurons=Cluster2_3_DN_name[2:1],dns_skel=dns_skel_Cluster2_3[2:1],col_vector=col_vector)
-rgl.snapshot(paste(figFileLoc,"Cluster2_3DNge165","_",thresh,".png", sep = ""), fmt = 'png')
+rgl.snapshot(paste(figFileLoc,"Cluster2_3DNg105","_",thresh,".png", sep = ""), fmt = 'png')
 
 plotNeurons(currNeurons=Cluster2_3_DN_name[4:3],dns_skel=dns_skel_Cluster2_3[4:3],col_vector=col_vector)
 rgl.snapshot(paste(figFileLoc,"Cluster2_3DNge079","_",thresh,".png", sep = ""), fmt = 'png')
 
 # plot the DNs based on first 2 PC loadings (hard coded based on Matlab code)
-PCA_CL_DNLoadings<-c("720575940631499832","720575940624977847","720575940611813842","720575940620582260")
-PCA_rightaIPg_DNLoadings<-c("720575940610505006","720575940611644529","720575940623276168","720575940628858640")
-PCA_leftaIPg_DNLoadings<-c("720575940623781127","720575940622673860","720575940628437291","720575940624402173")
+PCA_CL_DNLoadings<-c("720575940615108904","720575940624977847","720575940611813842","720575940611644529")
+PCA_rightaIPg_DNLoadings<-c("720575940610505006","720575940611644529","720575940620264315","720575940612514146")
+PCA_leftaIPg_DNLoadings<-c("720575940623781127","720575940625577451","720575940628437291","720575940624402173")
 dns_skel_PCA_CL=read_cloudvolume_meshes(PCA_CL_DNLoadings)
 dns_skel_PCA_rightaIPg=read_cloudvolume_meshes(PCA_rightaIPg_DNLoadings)
 dns_skel_PCA_leftaIPg=read_cloudvolume_meshes(PCA_leftaIPg_DNLoadings)
@@ -317,4 +326,33 @@ for (p in 1:nPairs){
   rgl.snapshot(paste(figFileLoc,"aIPg2DN_PCA_type","_",p,".png", sep = ""), fmt = 'png')
 }
 
+######################
+# plot CL062 morphology based on clusters
+CL_id = inpN[[1]]
+skel_CL=read_cloudvolume_meshes(inpN[[1]])
+clusterNdx<-list(c(5,9,3,2,7,13,10,15),c(6,8,1,4),c(11,12,17,14,16))#note that this is hardcoded based on my_heatmap$tree_row$order from CL_aIPg_pC1_toDN_analysis
+
+for (cl in 1:length(clusterNdx)){
+  currNeurons = CL_id[clusterNdx[[cl]]]
+  currdns_skel = skel_CL[clusterNdx[[cl]]]
+  plotNeurons(currNeurons=currNeurons,dns_skel=currdns_skel,col_vector=col_vector)
+  rgl.snapshot(paste(figFileLoc,"CL_cluster","_",cl,".png", sep = ""), fmt = 'png')
+}
+
+plotNeurons(currNeurons=currNeurons,dns_skel=currdns_skel,col_vector=col_vector)
+plotNeurons(currNeurons=currNeurons,dns_skel=currdns_skel,col_vector=col_vector)
+
+col_vector2 = c(rep(col_vector[2], length(clusterNdx[[1]])),
+                rep(col_vector[3], length(clusterNdx[[2]])),
+                rep(col_vector[4], length(clusterNdx[[3]])))
+plotNeurons(currNeurons=CL_id[unlist(clusterNdx)],dns_skel=skel_CL[unlist(clusterNdx)],col_vector=col_vector2)
+rgl.snapshot(paste(figFileLoc,"CL_byCluster_anteriorView.png", sep = ""), fmt = 'png')
+nview3d(viewpoint = ("dorsal"))
+rgl.snapshot(paste(figFileLoc,"CL_byCluster_dorsalView.png", sep = ""), fmt = 'png')
+
+# plot the synapse locations as a scatter plot
+plotSynapses(currNeurons=CL_id[unlist(clusterNdx)],col_vector=col_vector2)
+rgl.snapshot(paste(figFileLoc,"CL_synapseLoc_byCluster_anteriorView.png", sep = ""), fmt = 'png')
+nview3d(viewpoint = ("dorsal"))
+rgl.snapshot(paste(figFileLoc,"CL_synapseLoc_byCluster_dorsalView.png", sep = ""), fmt = 'png')
 
