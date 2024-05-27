@@ -414,33 +414,6 @@ sConnAll2Adj <- function(inpN = c(), DownstreamNeurons=c()){
 
 }
 
-sConnAll2Adj_float <- function(inpN = c(), DownstreamNeurons=c()){
-  
-  sConnA=unique(c(unlist(inpN),unique(unlist(DownstreamNeurons))))
-  
-  tmp=fl(matrix(0,floor(length(sConnA)/2),length(sConnA)))
-  adjFW = cbind(rbind(tmp,tmp),rbind(tmp,tmp))
-  rownames(adjFW)=sConnA
-  colnames(adjFW)=sConnA
-  
-  itr=1
-  for (i in sConnAll) {
-    for (k in 2:length(i)) {
-      for (d in 1:nrow(i[[k]])) {
-        if (length(inpN[[itr]])>1){
-          adjFW[which(rownames(adjFW)%in%i[[k]]$query[d]),which(colnames(adjFW)%in%i[[k]]$post_id[d])]=i[[k]]$weight[d]
-        } else {
-          adjFW[which(rownames(adjFW)%in%inpN[[itr]]),which(colnames(adjFW)%in%i[[k]]$post_id[d])]=i[[k]]$weight[d]
-        }
-      }
-    }
-    itr=itr+1
-  }
-  
-  return(adjFW)
-  
-}
-
 plotNeurons <- function(currNeurons=c(),dns_skel=c(),col_vector=c()){
   open3d()
   par3d(windowRect = c(0, 0, 1800, 1800))
