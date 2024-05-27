@@ -77,7 +77,7 @@ The DeepLabCut models can be found here [DLC](https://www.dropbox.com/scl/fo/2wn
 
 **Note 1:** The MATLAB code creates multipage postscript analysis figure files. To convert postscript to pdf, you can use adobe or [ghostscript](https://www.ghostscript.com/)\
 <br/>
-**Note 2:** The figures for each of the WalkingChamberCodeBase, DMDCodeBase, and Connectomics analysis will be located in their respective Figures subfolder.\
+**Note 2:** The figures for each of the WalkingChamberCodeBase, DMDCodeBase, and Connectomics analysis will be located in their respective Figures subfolder.
 
 ## Authors and Citation
 
