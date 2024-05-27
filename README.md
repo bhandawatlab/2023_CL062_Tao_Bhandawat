@@ -43,19 +43,19 @@ To download the data, please navigate to the **2023_CL062_Tao_Bhandawat** direct
 If this doesn't work, then please manually download the data and place it in the correct folders (see below)
 
 ### WalkingChamberCodeBase
-A copy of the dataset is located in [Dropbox](https://www.dropbox.com/scl/fo/ncvnp7mdgky209xts1918/h?rlkey=vj6izdum2f91ry61gyyffbabw&dl=0)\
+A copy of the dataset is located in [Dropbox](https://www.dropbox.com/scl/fo/grnpfn4341rtk8lxigkoy/AHP8lHGSyFLWGSNExqhiNjw?rlkey=0maj0z4btn67hcmh9tnvol2vo&st=clm9fxwt&dl=0)\
 Make sure the data is in the following folder: 2023_CL062_Tao_Bhandawat/WalkingChamberCodeBase/Data/
 
 In MATLAB, navigate to the WalkingChamberCodeBase folder and run: ```RunPipeline.m```
 
 ### DMDCodeBase
-A copy of the dataset is located in [Dropbox](https://www.dropbox.com/scl/fo/mrb8kk4do4w3978crhwkq/h?rlkey=rqgapxeakzw9kndago72m509c&dl=0)\
+A copy of the dataset is located in [Dropbox](https://www.dropbox.com/scl/fo/3yfi7e0bt6tk5vof2s66x/AG14bXNnMynMY_ECSjiqAFM?rlkey=zu98bvvhaj1maxy4tbedt598t&st=76j2d6ta&dl=0)\
 Make sure the data is in the following folder: 2023_CL062_Tao_Bhandawat/DMDCodeBase/Data/
 
 In MATLAB, navigate to the DMDCodeBase folder and run: ```RunPipeline.m```
 
 ### Connectomics
-A copy of the dataset is located in [Dropbox](https://www.dropbox.com/scl/fo/u1xk2uqkyl1nrt66s8bme/h?rlkey=nwuu94l9abm1iggh8pahhsa6g&dl=0)\
+A copy of the dataset is located in [Dropbox](https://www.dropbox.com/scl/fo/slv34h2i3k16h6vf75ofd/AKThNByCWVBsk0D0a02_Hb0?rlkey=uq8zcrf3nhp5f6ty51klinzyv&st=wljpf6kn&dl=0)\
 Make sure the data is in the following folder: 2023_CL062_Tao_Bhandawat/Connectomics/Data/
 
 In RStudio, navigate to the Connectomics folder
@@ -69,17 +69,15 @@ In Matlab, navigate to the Connectomics folder
 
 ## Other Data location
 
-The source dataset (specific for each figure panel) can be found here [To be added](https://www.dropbox.com/scl/fo/kia94jeadfe2d2bw5sodo/h?rlkey=nf72mq1kyav3ptvkt2q3be110&dl=0)\
-The JAABA model can be found here [JAABA](https://www.dropbox.com/scl/fo/ypb4gwupdknzajj8qwa0m/h?rlkey=71m4rdq5j02axo7ig366ixdj5&dl=0)\
-The DeepLabCut models can be found here [DLC](https://www.dropbox.com/scl/fo/v6vs5h4w8ls7fjdzuz56a/h?rlkey=6x3bxfsgb7fqi0f2il4uo3a9t&dl=0)
+The JAABA model can be found here [JAABA](https://www.dropbox.com/scl/fo/083iqfmx6topwnqa1tfwa/AC2Uhc8d1Kh0D4putnH77SM?rlkey=5cdjfao8ukaeci9xjs2uol58a&st=pxuwlfsk&dl=0)\
+The DeepLabCut models can be found here [DLC](https://www.dropbox.com/scl/fo/2wnbgbhsde420a4oyg33h/ADNc0Ks2SX-4k0VI2tj61W8?rlkey=vim53i566pynno08gvp2mumdb&st=t6z6t3ja&dl=0)
 
 
 ## General Information
 
 **Note 1:** The MATLAB code creates multipage postscript analysis figure files. To convert postscript to pdf, you can use adobe or [ghostscript](https://www.ghostscript.com/)\
 <br/>
-**Note 2:** The figures for each of the WalkingChamberCodeBase and DMDCodeBase analysis will be located in the Figures subfolder.\
-The figures for the Connectomics analysis will be located in: 2023_CL062_Tao_Bhandawat/Connectomics/RConnectomicsAnalysis/Figures/
+**Note 2:** The figures for each of the WalkingChamberCodeBase, DMDCodeBase, and Connectomics analysis will be located in their respective Figures subfolder.\
 
 ## Authors and Citation
 
