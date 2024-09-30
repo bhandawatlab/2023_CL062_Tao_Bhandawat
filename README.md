@@ -3,7 +3,7 @@
 
 # 2023_CL062_Tao_Bhandawat
 
-2023_CL062_Tao_Bhandawat contains the MATLAB code that accompanies the paper: "Neurons underlying aggressive actions that are shared by both males and females in *Drosophila*."
+2023_CL062_Tao_Bhandawat contains the MATLAB code that accompanies the paper: "Neurons underlying aggression-like actions that are shared by both males and females in *Drosophila*." - JNeurosci 2024
 
 
 ## Getting Started
