@@ -68,6 +68,8 @@ for f = 1:fNum
 end
 figureFile = [figFolder 'wingspan_sem_' dateAnalyzed];
 saveFigure(figureFile,fNum);
+figure(fNum+1);print('-vector','-dpdf',[figureFile '_pValues.pdf'])
+figure(fNum+2);print('-vector','-dpdf',[figureFile '_WValues.pdf'])
 close all
 
 %% left wing pitch
@@ -92,10 +94,54 @@ end
 figureFile = [figFolder 'rightWingPitch_sem_' dateAnalyzed];
 saveFigure(figureFile,fNum);
 
+%% ipsi contra
 close all
-[p_sr_IpsiContra,p_sr_BilaSum] = plotUniWingPitch(uStimLeft,uStimRight,meta,1);
+[p_sr_IpsiContra,p_sr_BilaSum,W_sr_IpsiContra,W_sr_BilaSum] = plotUniWingPitch(uStimLeft,uStimRight,meta,1);
 saveFigure([figFolder 'LR_wing_comp2_' dateAnalyzed],3)
 
+T = array2table(p_sr_IpsiContra);
+T.Properties.VariableNames = {'first 2','last 2','full 5'};
+T.Properties.RowNames = {'both','left','right'};
+figure;set(gcf,'Position',[2 42 483 645]);
+h = subplot(2,1,1);
+hPos = get(h, 'Position');           % NEW
+uitable('Data', table2cell(T),'ColumnName',T.Properties.VariableNames,...
+    'RowName',T.Properties.RowNames,...
+    'Units', 'Normalized','Position',hPos);
+title('IpsiContraComparison (p-val)');
+T = array2table(p_sr_BilaSum);
+T.Properties.VariableNames = {'first 2','last 2','full 5'};
+T.Properties.RowNames = {'both','left','right'};
+h = subplot(2,1,2);
+hPos = get(h, 'Position');           % NEW
+uitable('Data', table2cell(T),'ColumnName',T.Properties.VariableNames,...
+    'RowName',T.Properties.RowNames,...
+    'Units', 'Normalized','Position',hPos);
+title('BilateralSumComparison (p-val)');
+print('-vector','-dpdf',[figFolder 'LR_wing_comp2_' dateAnalyzed '_pValues.pdf'])
+
+T = array2table(W_sr_IpsiContra);
+T.Properties.VariableNames = {'first 2','last 2','full 5'};
+T.Properties.RowNames = {'both','left','right'};
+figure;set(gcf,'Position',[2 42 483 645]);
+h = subplot(2,1,1);
+hPos = get(h, 'Position');           % NEW
+uitable('Data', table2cell(T),'ColumnName',T.Properties.VariableNames,...
+    'RowName',T.Properties.RowNames,...
+    'Units', 'Normalized','Position',hPos);
+title('IpsiContraComparison (W-val)');
+T = array2table(W_sr_BilaSum);
+T.Properties.VariableNames = {'first 2','last 2','full 5'};
+T.Properties.RowNames = {'both','left','right'};
+h = subplot(2,1,2);
+hPos = get(h, 'Position');           % NEW
+uitable('Data', table2cell(T),'ColumnName',T.Properties.VariableNames,...
+    'RowName',T.Properties.RowNames,...
+    'Units', 'Normalized','Position',hPos);
+title('BilateralSumComparison (W-val)');
+print('-vector','-dpdf',[figFolder 'LR_wing_comp2_' dateAnalyzed '_WValues.pdf'])
+
+%% time to peak
 close all;
 fNum = 1;
 plotTime2PeakComparisons(pkLocOn_all,fNum)

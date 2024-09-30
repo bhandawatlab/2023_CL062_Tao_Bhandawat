@@ -78,96 +78,96 @@ ID_stim2ConRamp_control = find(cellfun(@(x) strcmpi(x,'StimulusFile_Control_Ramp
 
 %%
 figure;set(gcf,'Position',[2 42 838 924]);fNum = get(gcf,'Number');
-fNumOut = fNum+2;
+fNumOut = fNum;%2
 if plotAllTraces
-    fNumOut = fNumOut+6;
+    fNumOut = fNumOut+6;%6
 end
 if plotRampComp
-    fNumOut = fNumOut+1;
+    fNumOut = fNumOut+1;%1
 end
 cc = distinguishable_colors(3);
 wSpnPkThresh = 0.25.*[0.8827 1];%male mu ~2.2738, female mu ~2.5759
 for g = 1:2
 
     %% Gtacr2 experiments
-    gtarc2Obs = obs_stim2Cons{g}(ID_stim2ConGtACR2,:);
-    gtarc2Obs = gtarc2Obs(cellfun(@(x) ~isempty(x), gtarc2Obs));
-    gtarc2ID = ID_stim2Con{g}(ID_stim2ConGtACR2,:);
-    gtarc2ID = gtarc2ID(cellfun(@(x) ~isempty(x), gtarc2ID));
-    [uniqueFlies,~,ndx] = unique(gtarc2ID);
-    label = {'1mW 450','2mW 450','Stim'};
-    if ~isempty(gtarc2Obs)
-        gtarc2Obs_avg = [];
-        gtarc2Stim_avg = [];
-        for s = 1:size(gtarc2Obs{1})
-            currObs = cell2mat(cellfun(@(x) x(s,:),gtarc2Obs,'UniformOutput',false)');
-            if meta.baselineSubtract
-                currObs = currObs-nanmean(currObs(:,1:meta.baselineDur*meta.fs),2);
-            end
-            gtarc2Obs_avg(s,:) = nanmean(currObs);
-            gtarc2Obs_sem(s,:) = nanstd(currObs)./sqrt(size(currObs,1));
-            gtarc2Stim_avg(s,:) = nanmean(cell2mat(cellfun(@(x) x(s,:),stim_stim2Cons{g}(4,1:numel(gtarc2Obs)),'UniformOutput',false)'));
-
-            if plotAllTraces
-                currObs = cell2mat(cellfun(@(x) x(s,:),gtarc2Obs,'UniformOutput',false)');
-                currObs_BS = currObs-nanmean(currObs(:,1:meta.baselineDur*meta.fs),2);
-                stimOn = find(diff(gtarc2Stim_avg(s,:) )>0);
-                for i = 1:numel(stimOn)
-                    baseLineVal(:,i) = nanmean(currObs(:,stimOn(i)-meta.baselineDur*meta.fs+1:stimOn(i)),2);
-                    StimVal(:,i) = nanmean(currObs(:,stimOn(i)+1:stimOn(i)+5*meta.fs),2);
-                end
-                diffObs = StimVal-baseLineVal;
-                diffObsLim = [floor(min(diffObs(:))*10)./10 ceil(max(diffObs(:))*10)./10];
-                obsLim = [floor(min(currObs(:))*10)./10 ceil(max(currObs(:))*10)./10];
-                for fly = 1:max(ndx)
-                    obs_bs_byFly(fly,:) = nanmean(currObs_BS(ndx==fly,:));
-                end
-                bsObsLim = [floor(min(obs_bs_byFly(:))*10)./10 ceil(max(obs_bs_byFly(:))*10)./10];
-
-                tt = (1:size(gtarc2Stim_avg,2))./meta.fs;
-                for fly = 1:max(ndx)
-                    figure(fNum+6+s);set(gcf,'Position',[2 42 838 924]);
-                    subplot(3,3,(fly-1)*3+1);
-                    plot(tt(r:r:end),currObs(ndx==fly,r:r:end)','Color',[0.5 0.5 0.5],'Linewidth',1);hold on;
-                    plot(tt(r:r:end),nanmean(currObs(ndx==fly,r:r:end)),'k','Linewidth',1);
-                    if obsLim(2)>0
-                        ylim([0 obsLim(2)]);
-                    else
-                        ylim(obsLim);
-                    end
-                    xlim([0 max(tt)]);
-                    xticks([0:10:max(tt)])
-                    xlabel('time (s)');ylabel('obs');
-                    title([uniqueFlies{fly} ' - ' label{s}], 'Interpreter', 'none')
-                    subplot(3,3,(fly-1)*3+2);
-                    plot(tt,obs_bs_byFly(fly,:),'k','Linewidth',2);
-                    ylim(bsObsLim);xlim([0 max(tt)])
-                    xticks([0:10:max(tt)])
-                    xlabel('time (s)');ylabel('obs');
-                    subplot(3,3,(fly-1)*3+3);
-                    opts.plotPaired = true;
-                    opts.yl = [];%opts.yl = diffObsLim;
-                    violinPlotsStats(diffObs(ndx==fly,:),opts);
-                    xticks([1 2 3])
-                    xticklabels({'Chrm1','Chrim+Gtacr', 'Chrm2'})
-                    title(['L320 Chrimson GTACR2 ' gender2Cons{g}])
-                end
-            end
-        end
-
-        tt = (1:size(gtarc2Stim_avg,2))./meta.fs;
-        figure(fNum)
-        subplot(4,2,g);
-        yyaxis left;
-        plotFig(tt,gtarc2Obs_avg,gtarc2Obs_sem,meta.ylim,meta.cond);
-        ylim([meta.ylim(1) meta.ylim(2)./5])
-        yyaxis right;
-        plot(tt,gtarc2Stim_avg(2,:)./8)
-        xlim([0 max(tt)]);
-        %label = {'1mW 450','2mW 450','Stim'};
-        legend(label);ylabel('BS obs')
-        title(['L320 Chrimson ' gender2Cons{g}])
-    end
+%     gtarc2Obs = obs_stim2Cons{g}(ID_stim2ConGtACR2,:);
+%     gtarc2Obs = gtarc2Obs(cellfun(@(x) ~isempty(x), gtarc2Obs));
+%     gtarc2ID = ID_stim2Con{g}(ID_stim2ConGtACR2,:);
+%     gtarc2ID = gtarc2ID(cellfun(@(x) ~isempty(x), gtarc2ID));
+%     [uniqueFlies,~,ndx] = unique(gtarc2ID);
+%     label = {'1mW 450','2mW 450','Stim'};
+%     if ~isempty(gtarc2Obs)
+%         gtarc2Obs_avg = [];
+%         gtarc2Stim_avg = [];
+%         for s = 1:size(gtarc2Obs{1})
+%             currObs = cell2mat(cellfun(@(x) x(s,:),gtarc2Obs,'UniformOutput',false)');
+%             if meta.baselineSubtract
+%                 currObs = currObs-nanmean(currObs(:,1:meta.baselineDur*meta.fs),2);
+%             end
+%             gtarc2Obs_avg(s,:) = nanmean(currObs);
+%             gtarc2Obs_sem(s,:) = nanstd(currObs)./sqrt(size(currObs,1));
+%             gtarc2Stim_avg(s,:) = nanmean(cell2mat(cellfun(@(x) x(s,:),stim_stim2Cons{g}(4,1:numel(gtarc2Obs)),'UniformOutput',false)'));
+% 
+%             if plotAllTraces
+%                 currObs = cell2mat(cellfun(@(x) x(s,:),gtarc2Obs,'UniformOutput',false)');
+%                 currObs_BS = currObs-nanmean(currObs(:,1:meta.baselineDur*meta.fs),2);
+%                 stimOn = find(diff(gtarc2Stim_avg(s,:) )>0);
+%                 for i = 1:numel(stimOn)
+%                     baseLineVal(:,i) = nanmean(currObs(:,stimOn(i)-meta.baselineDur*meta.fs+1:stimOn(i)),2);
+%                     StimVal(:,i) = nanmean(currObs(:,stimOn(i)+1:stimOn(i)+5*meta.fs),2);
+%                 end
+%                 diffObs = StimVal-baseLineVal;
+%                 diffObsLim = [floor(min(diffObs(:))*10)./10 ceil(max(diffObs(:))*10)./10];
+%                 obsLim = [floor(min(currObs(:))*10)./10 ceil(max(currObs(:))*10)./10];
+%                 for fly = 1:max(ndx)
+%                     obs_bs_byFly(fly,:) = nanmean(currObs_BS(ndx==fly,:));
+%                 end
+%                 bsObsLim = [floor(min(obs_bs_byFly(:))*10)./10 ceil(max(obs_bs_byFly(:))*10)./10];
+% 
+%                 tt = (1:size(gtarc2Stim_avg,2))./meta.fs;
+%                 for fly = 1:max(ndx)
+%                     figure(fNum+6+s);set(gcf,'Position',[2 42 838 924]);
+%                     subplot(3,3,(fly-1)*3+1);
+%                     plot(tt(r:r:end),currObs(ndx==fly,r:r:end)','Color',[0.5 0.5 0.5],'Linewidth',1);hold on;
+%                     plot(tt(r:r:end),nanmean(currObs(ndx==fly,r:r:end)),'k','Linewidth',1);
+%                     if obsLim(2)>0
+%                         ylim([0 obsLim(2)]);
+%                     else
+%                         ylim(obsLim);
+%                     end
+%                     xlim([0 max(tt)]);
+%                     xticks([0:10:max(tt)])
+%                     xlabel('time (s)');ylabel('obs');
+%                     title([uniqueFlies{fly} ' - ' label{s}], 'Interpreter', 'none')
+%                     subplot(3,3,(fly-1)*3+2);
+%                     plot(tt,obs_bs_byFly(fly,:),'k','Linewidth',2);
+%                     ylim(bsObsLim);xlim([0 max(tt)])
+%                     xticks([0:10:max(tt)])
+%                     xlabel('time (s)');ylabel('obs');
+%                     subplot(3,3,(fly-1)*3+3);
+%                     opts.plotPaired = true;
+%                     opts.yl = [];%opts.yl = diffObsLim;
+%                     violinPlotsStats(diffObs(ndx==fly,:),opts);
+%                     xticks([1 2 3])
+%                     xticklabels({'Chrm1','Chrim+Gtacr', 'Chrm2'})
+%                     title(['L320 Chrimson GTACR2 ' gender2Cons{g}])
+%                 end
+%             end
+%         end
+% 
+%         tt = (1:size(gtarc2Stim_avg,2))./meta.fs;
+%         figure(fNum)
+%         subplot(4,2,g);
+%         yyaxis left;
+%         plotFig(tt,gtarc2Obs_avg,gtarc2Obs_sem,meta.ylim,meta.cond);
+%         ylim([meta.ylim(1) meta.ylim(2)./5])
+%         yyaxis right;
+%         plot(tt,gtarc2Stim_avg(2,:)./8)
+%         xlim([0 max(tt)]);
+%         %label = {'1mW 450','2mW 450','Stim'};
+%         legend(label);ylabel('BS obs')
+%         title(['L320 Chrimson ' gender2Cons{g}])
+%     end
 
     %% ROI experiments
     roiObs = obs_stim2Cons{g}(ID_stim2ConROI,:);
@@ -233,7 +233,8 @@ for g = 1:2
         if plotRampComp
             figure(fNumOut);set(gcf,'Position',[2 42 838 924]);
             opts.yl = [];%[0 2];
-            subplot(4,2,g);violinPlotsStats(pkLocOn,opts);
+            subplot(4,2,g);[p1,W1] = violinPlotsStats(pkLocOn,opts);
+            title(sprintf('n= %i, %i, %i, %i',sum(~isnan(pkLocOn))))
             xticks([1:size(pkLocOn,2)])
             xticklabels(label_intOnly')
             %scatter(zeros(size(rampObs,2),1)+[1:4],pkLocOn);legend(label);
@@ -242,7 +243,8 @@ for g = 1:2
             xlabel('mW/cm^2')
             ylabel('light off time to drop (s)')
             opts.yl = [];%[-0.5 0.5];
-            subplot(4,2,4+g);violinPlotsStats(baseLineOff-baseLine,opts);%[-0.5 0.5];
+            subplot(4,2,4+g);[p2,W2] = violinPlotsStats(baseLineOff-baseLine,opts);%[-0.5 0.5];
+            title(sprintf('Sign-Rank, n= %i, %i, %i, %i',sum(~isnan(baseLineOff))))
             %scatter(zeros(size(rampObs,2),1)+[1:4],baseLineOff-baseLine);
             xticks([1:size(baseLineOff,2)])
             xticklabels(label_intOnly')
@@ -251,6 +253,48 @@ for g = 1:2
             plot([0 1.5],[0 1.5],'k')
             xlabel('baseline before light on');
             ylabel('baseline after light off')
+
+            % p-values
+            T = array2table(p1);
+            T.Properties.VariableNames = label_intOnly';
+            T.Properties.RowNames = label_intOnly';
+            figure(fNumOut+1);set(gcf,'Position',[2 42 997 645]);
+            h = subplot(2,2,g);
+            hPos = get(h, 'Position');           % NEW
+            uitable('Data', table2cell(T),'ColumnName',T.Properties.VariableNames,...
+                'Units', 'Normalized','Position',hPos);
+            title('light on time to peak p-values');
+
+            T = array2table(p2);
+            T.Properties.VariableNames = label_intOnly';
+            T.Properties.RowNames = label_intOnly';
+            figure(fNumOut+1);set(gcf,'Position',[2 42 997 645]);
+            h = subplot(2,2,2+g);
+            hPos = get(h, 'Position');           % NEW
+            uitable('Data', table2cell(T),'ColumnName',T.Properties.VariableNames,...
+                'Units', 'Normalized','Position',hPos);
+            title('diff in baseline p-values');
+
+            % W-values
+            T = array2table(W1);
+            T.Properties.VariableNames = label_intOnly';
+            T.Properties.RowNames = label_intOnly';
+            figure(fNumOut+2);set(gcf,'Position',[2 42 997 645]);
+            h = subplot(2,2,g);
+            hPos = get(h, 'Position');           % NEW
+            uitable('Data', table2cell(T),'ColumnName',T.Properties.VariableNames,...
+                'Units', 'Normalized','Position',hPos);
+            title('light on time to peak W-values');
+
+            T = array2table(W2);
+            T.Properties.VariableNames = label_intOnly';
+            T.Properties.RowNames = label_intOnly';
+            figure(fNumOut+2);set(gcf,'Position',[2 42 997 645]);
+            h = subplot(2,2,2+g);
+            hPos = get(h, 'Position');           % NEW
+            uitable('Data', table2cell(T),'ColumnName',T.Properties.VariableNames,...
+                'Units', 'Normalized','Position',hPos);
+            title('diff in baseline W-values');
         end
 
         if plotAllTraces

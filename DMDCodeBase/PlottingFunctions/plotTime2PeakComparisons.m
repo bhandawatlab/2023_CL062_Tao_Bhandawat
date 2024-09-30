@@ -24,7 +24,9 @@ for gen = 1:2
     lims(2) = round2NearestInterval(max(dat),5,0,true);
     lims(1) = round2NearestInterval(min(dat),5,0,false);
     [ss,p,~] = dabest3(dat,g,p,[],lims,isPaired,circleSize,barstate,subplots);
-    labelAxis(p,subplots,'dur (s)',['Time 2 first Peak ',gender{gen}])
+    n = cell2mat(arrayfun(@(x)length(find(strcmpi(g,x))), unique(g,'stable'), 'Uniform', false));
+    labelAxis(p,subplots,'dur (s)',{['Time 2 first Peak ',gender{gen}],...
+        sprintf('n= %i, %i, %i, %i, %i',n)})
     subplots(3) = subplots(3)+1;
 end
 
@@ -38,7 +40,9 @@ for gen = 1:2
     lims(2) = round2NearestInterval(max(dat),5,0,true);
     lims(1) = round2NearestInterval(min(dat),5,0,false);
     [ss,p,~] = dabest3(dat,g,p,[],lims,isPaired,circleSize,barstate,subplots);
-    labelAxis(p,subplots,'wingspan (mm)',['First peak magnitude ',gender{gen}])
+    n = cell2mat(arrayfun(@(x)length(find(strcmpi(g,x))), unique(g,'stable'), 'Uniform', false));
+    labelAxis(p,subplots,'wingspan (mm)',{['First peak magnitude ',gender{gen}],...
+        sprintf('n= %i, %i, %i, %i, %i',n)})
     subplots(3) = subplots(3)+1;
 end
 
@@ -52,7 +56,10 @@ for gen = 1:2
     lims(2) = round2NearestInterval(max(dat),25,-1,true);
     lims(1) = round2NearestInterval(min(dat),25,-1,false);
     [ss,p,~] = dabest3(dat,g,p,[],lims,isPaired,circleSize,barstate,subplots);
-    labelAxis(p,subplots,'delta wingspan (mm)',['first 2 s - last 2 s of stim ',gender{gen}])
+    n = cell2mat(arrayfun(@(x)length(find(strcmpi(g,x))), unique(g,'stable'), 'Uniform', false));
+    %labelAxis(p,subplots,'delta wingspan (mm)',['first 2 s - last 2 s of stim ',gender{gen}])
+    labelAxis(p,subplots,'delta wingspan (mm)',{['first 2 s - last 2 s of stim ',gender{gen}],...
+        sprintf('n= %i, %i, %i, %i, %i',n)})
     subplots(3) = subplots(3)+1;
 end
 

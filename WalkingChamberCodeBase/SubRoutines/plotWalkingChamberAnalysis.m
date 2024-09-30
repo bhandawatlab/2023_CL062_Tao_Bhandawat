@@ -378,6 +378,9 @@ figure(14);sgtitle('time to first action (s)');
 figure(15);sgtitle('time to first action (s)');
 
 
+h =  findobj('type','figure');
+n = length(h);
+figure(n)
 fs = 100;
 % statistical testing between genotypes
 for i = 1:size(dataset2Comp,1)
@@ -387,6 +390,9 @@ end
 
 if isempty(figureFile)
     figureFile = 'Action Analysis';
+end
+if exist([params.figFolder figureFile '.ps'], 'file')==2
+  delete([params.figFolder figureFile '.ps']);
 end
 for f = 1:get(gcf,'Number')
     figure(f);set(gcf,'Position',[2 42 838 924]);
@@ -443,7 +449,9 @@ obsData_lin(:,end-1:end) = repmat(obsData_lin(:,end-2),1,2);
 end
 
 function [] = statisticTest(action_byFly,allActions,smoothDur,dataset,fs,yl,alpha,gen2Comp)
-figure;set(gcf,'Position',[2 42 838 924]);
+currFig = get(gcf,'Number')+1;
+figure(currFig);set(gcf,'Position',[2 42 838 924]);
+figure(currFig+1);set(gcf,'Position',[2 42 838 924]);
 p3 = [];
 mxPt = max(cellfun(@(x)size(x,2),action_byFly),[],'all');
 action_byFly = cellfun(@(v) interp1((1:size(v,2))./size(v,2),v',(1:mxPt)./mxPt)',action_byFly,'UniformOutput',false);
@@ -454,16 +462,20 @@ for action = 1:numel(allActions{1})
     genNdx = cell2mat(cellfun(@(x,y) repmat(y,size(x,1),1),action_byFly(gen2Comp,action)',num2cell(gen2Comp),'UniformOutput',false)');
     dt = fs/2;i = 1;
     p = nan(1,(30.5*fs)/dt);
+    W = nan(1,(30.5*fs)/dt);
     for tt = 1:dt:(30.5*fs)
-        [p(i),~] = ranksum(nanmean(currAction_smoothed(genNdx==gen2Comp(1),tt:(tt+dt-1)),2),...
+        [p(i),~,stats] = ranksum(nanmean(currAction_smoothed(genNdx==gen2Comp(1),tt:(tt+dt-1)),2),...
             nanmean(currAction_smoothed(genNdx==gen2Comp(2),tt:(tt+dt-1)),2));%ttest2
+        W(i) = stats.ranksum;
         i = i+1;
     end
     p = reshape(repmat(p,dt,1),[],1)';
+    W = reshape(repmat(W,dt,1),[],1)';
     [startNdx,endNdx,type] = startEndSeq(p<alpha);
     startNdx(type == 0) = [];
     endNdx(type == 0) = [];
     %
+    figure(currFig)
     h = subplot(3,2,action);hold on;
     p1 = shadedErrorBar((1:30.5*fs)./fs,smooth(nanmean(currAction(genNdx==gen2Comp(1),:)),smoothDur),...
         smooth(nanstd(currAction(genNdx==gen2Comp(1),:)),smoothDur),'lineprops','g');
@@ -482,6 +494,18 @@ for action = 1:numel(allActions{1})
             legend([p1.mainLine p2.mainLine p3],[dataset(gen2Comp), {['rank_sum p<' num2str(alpha)]}],'Interpreter','none')
         end
     end
+    figure(currFig+1)
+    subplot(6,2,action)
+    plot((1:numel(p))./fs,log10(p),'k')
+    xlabel('time (s)');ylabel('log10(p-value)')
+    ylim([-5 0]);xlim([0 30.5])
+    xticks(0:5:30);
+
+    subplot(6,2,action+6);
+    plot((1:numel(W))./fs,W,'k')
+    xlim([0 30.5]);%ylim([-5 0]);
+    xticks(0:5:30);
+    xlabel('time (s)');ylabel('W-value')
 end
 end
 

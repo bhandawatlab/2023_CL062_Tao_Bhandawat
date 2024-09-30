@@ -1,4 +1,4 @@
-function [] = violinPlotsStats(data,opts)
+function [p2,W2] = violinPlotsStats(data,opts)
 % significant box of violins
 
 % setup commonly used values
@@ -43,24 +43,34 @@ cc = distinguishable_colors(nCond);
 % statistical test
 p = nan(nCond,nCond);
 p2 = nan(nCond,nCond);
+W = nan(nCond,nCond);
+W2 = nan(nCond,nCond);
 for i = 1:nCond
     for j = i+1:nCond
         try
-            p(i,j) = signrank(data(:,i),data(:,j));
-            p2(i,j) = ranksum(data(:,i),data(:,j));
+            [p(i,j), ~, stats] = signrank(data(:,i),data(:,j));
+            [p2(i,j), ~, stats2] = ranksum(data(:,i),data(:,j));
+            W(i,j) = stats.signedrank;
+            W2(i,j) = stats2.ranksum;
         catch
             p(i,j) = nan;
             p2(i,j) = nan;
+            W(i,j) = nan;
+            W2(i,j) = nan;
         end
     end
 end
 if any(sum(isnan(data))./size(data,1)>0.5)
     p = p2;disp('Note enough paired data. Using rank sum')
+    W = W2;
     test = 'Rank Sum';
 else
     test = 'Sign Rank';
 end
+p2 = p;
+W2 = W;
 p(p>max(opts.sigLevel)) = nan;
+
 
 if opts.omitOutliers
     outliers = isoutlier(data);

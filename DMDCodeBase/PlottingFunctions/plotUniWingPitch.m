@@ -1,4 +1,4 @@
-function [p_sr_IpsiContra,p_sr_BilaSum] = plotUniWingPitch(uStimLeft,uStimRight,meta,fNum)
+function [p_sr_IpsiContra,p_sr_BilaSum,W_sr_IpsiContra,W_sr_BilaSum] = plotUniWingPitch(uStimLeft,uStimRight,meta,fNum)
 close all
 
 ipsi = [uStimLeft.uLE;uStimRight.uRE];
@@ -84,9 +84,12 @@ labelAxis(pwmd,subplots,{'Both wings','AUC (deg)'},'')
 subplots(3) = subplots(3)+1;
 
 % get the sign rank
-p_sr_IpsiContra(1,1) = signrank(dat(strcmpi(g,'first 2s ipsi')),dat(strcmpi(g,'first 2s Contra')));
-p_sr_IpsiContra(1,2) = signrank(dat(strcmpi(g,'last 2s Ipsi')),dat(strcmpi(g,'last 2s Contra')));
-p_sr_IpsiContra(1,3) = signrank(dat(strcmpi(g,'full Ipsi')),dat(strcmpi(g,'full Contra')));
+[p_sr_IpsiContra(1,1),~,stats] = signrank(dat(strcmpi(g,'first 2s ipsi')),dat(strcmpi(g,'first 2s Contra')));
+W_sr_IpsiContra(1,1) = stats.signedrank;
+[p_sr_IpsiContra(1,2),~,stats] = signrank(dat(strcmpi(g,'last 2s Ipsi')),dat(strcmpi(g,'last 2s Contra')));
+W_sr_IpsiContra(1,2) = stats.signedrank;
+[p_sr_IpsiContra(1,3),~,stats] = signrank(dat(strcmpi(g,'full Ipsi')),dat(strcmpi(g,'full Contra')));
+W_sr_IpsiContra(1,3) = stats.signedrank;
 
 % both wings sum vs bilateral
 both_bi_first2 = [uStimLeft.datFirst2s(strcmpi(uStimLeft.lab,'Left Bilateral'));...
@@ -118,10 +121,12 @@ labelAxis(pwmd,subplots,{'Both wings','AUC (deg)'},'')
 subplots(3) = subplots(3)+1;
 
 % get the sign rank
-p_sr_BilaSum(1,1) = signrank(dat(strcmpi(g,'first 2s bilat')),dat(strcmpi(g,'first 2s sum')));
-p_sr_BilaSum(1,2) = signrank(dat(strcmpi(g,'last 2s bilat')),dat(strcmpi(g,'last 2s sum')));
-p_sr_BilaSum(1,3) = signrank(dat(strcmpi(g,'full bilat')),dat(strcmpi(g,'full sum')));
-
+[p_sr_BilaSum(1,1),~,stats] = signrank(dat(strcmpi(g,'first 2s bilat')),dat(strcmpi(g,'first 2s sum')));
+W_sr_BilaSum(1,1) = stats.signedrank;
+[p_sr_BilaSum(1,2),~,stats] = signrank(dat(strcmpi(g,'last 2s bilat')),dat(strcmpi(g,'last 2s sum')));
+W_sr_BilaSum(1,2) = stats.signedrank;
+[p_sr_BilaSum(1,3),~,stats] = signrank(dat(strcmpi(g,'full bilat')),dat(strcmpi(g,'full sum')));
+W_sr_BilaSum(1,3) = stats.signedrank;
 
 % left wing ipsi vs contra
 both_ipsi_first2 = [uStimLeft.datFirst2s(strcmpi(uStimLeft.lab,'Left Ipsi'))];
@@ -148,10 +153,12 @@ changeAxisLims(pwmd,subplots,[],[-10:5:5]);
 subplots(3) = subplots(3)+1;
 
 % get the sign rank
-p_sr_IpsiContra(2,1) = signrank(dat(strcmpi(g,'first 2s ipsi')),dat(strcmpi(g,'first 2s Contra')));
-p_sr_IpsiContra(2,2) = signrank(dat(strcmpi(g,'last 2s Ipsi')),dat(strcmpi(g,'last 2s Contra')));
-p_sr_IpsiContra(2,3) = signrank(dat(strcmpi(g,'full Ipsi')),dat(strcmpi(g,'full Contra')));
-
+[p_sr_IpsiContra(2,1),~,stats] = signrank(dat(strcmpi(g,'first 2s ipsi')),dat(strcmpi(g,'first 2s Contra')));
+W_sr_IpsiContra(2,1) = stats.signedrank;
+[p_sr_IpsiContra(2,2),~,stats] = signrank(dat(strcmpi(g,'last 2s Ipsi')),dat(strcmpi(g,'last 2s Contra')));
+W_sr_IpsiContra(2,2) = stats.signedrank;
+[p_sr_IpsiContra(2,3),~,stats] = signrank(dat(strcmpi(g,'full Ipsi')),dat(strcmpi(g,'full Contra')));
+W_sr_IpsiContra(2,3) = stats.signedrank;
 
 % left wing sum vs bilateral
 both_bi_first2 = [uStimLeft.datFirst2s(strcmpi(uStimLeft.lab,'Left Bilateral'))];
@@ -178,10 +185,12 @@ changeAxisLims(pwmd,subplots,[],[-10:5:5]);
 subplots(3) = subplots(3)+1;
 
 % get the sign rank
-p_sr_BilaSum(2,1) = signrank(dat(strcmpi(g,'first 2s bilat')),dat(strcmpi(g,'first 2s sum')));
-p_sr_BilaSum(2,2) = signrank(dat(strcmpi(g,'last 2s bilat')),dat(strcmpi(g,'last 2s sum')));
-p_sr_BilaSum(2,3) = signrank(dat(strcmpi(g,'full bilat')),dat(strcmpi(g,'full sum')));
-
+[p_sr_BilaSum(2,1),~,stats] = signrank(dat(strcmpi(g,'first 2s bilat')),dat(strcmpi(g,'first 2s sum')));
+W_sr_BilaSum(2,1) = stats.signedrank;
+[p_sr_BilaSum(2,2),~,stats] = signrank(dat(strcmpi(g,'last 2s bilat')),dat(strcmpi(g,'last 2s sum')));
+W_sr_BilaSum(2,2) = stats.signedrank;
+[p_sr_BilaSum(2,3),~,stats] = signrank(dat(strcmpi(g,'full bilat')),dat(strcmpi(g,'full sum')));
+W_sr_BilaSum(2,3) = stats.signedrank;
 
 % right wing ipsi vs contra
 both_ipsi_first2 = [uStimRight.datFirst2s(strcmpi(uStimRight.lab,'Right Ipsi'))];
@@ -208,9 +217,12 @@ changeAxisLims(pwmd,subplots,[],[-10:5:5]);
 subplots(3) = subplots(3)+1;
 
 % get the sign rank
-p_sr_IpsiContra(3,1) = signrank(dat(strcmpi(g,'first 2s ipsi')),dat(strcmpi(g,'first 2s Contra')));
-p_sr_IpsiContra(3,2) = signrank(dat(strcmpi(g,'last 2s Ipsi')),dat(strcmpi(g,'last 2s Contra')));
-p_sr_IpsiContra(3,3) = signrank(dat(strcmpi(g,'full Ipsi')),dat(strcmpi(g,'full Contra')));
+[p_sr_IpsiContra(3,1),~,stats] = signrank(dat(strcmpi(g,'first 2s ipsi')),dat(strcmpi(g,'first 2s Contra')));
+W_sr_IpsiContra(3,1) = stats.signedrank;
+[p_sr_IpsiContra(3,2),~,stats] = signrank(dat(strcmpi(g,'last 2s Ipsi')),dat(strcmpi(g,'last 2s Contra')));
+W_sr_IpsiContra(3,2) = stats.signedrank;
+[p_sr_IpsiContra(3,3),~,stats] = signrank(dat(strcmpi(g,'full Ipsi')),dat(strcmpi(g,'full Contra')));
+W_sr_IpsiContra(3,3) = stats.signedrank;
 
 
 % right wing sum vs bilateral
@@ -238,9 +250,12 @@ changeAxisLims(pwmd,subplots,[],[-10:5:5]);
 subplots(3) = subplots(3)+1;
 
 % get the sign rank
-p_sr_BilaSum(3,1) = signrank(dat(strcmpi(g,'first 2s bilat')),dat(strcmpi(g,'first 2s sum')));
-p_sr_BilaSum(3,2) = signrank(dat(strcmpi(g,'last 2s bilat')),dat(strcmpi(g,'last 2s sum')));
-p_sr_BilaSum(3,3) = signrank(dat(strcmpi(g,'full bilat')),dat(strcmpi(g,'full sum')));
+[p_sr_BilaSum(3,1),~,stats] = signrank(dat(strcmpi(g,'first 2s bilat')),dat(strcmpi(g,'first 2s sum')));
+W_sr_BilaSum(3,1) = stats.signedrank;
+[p_sr_BilaSum(3,2),~,stats] = signrank(dat(strcmpi(g,'last 2s bilat')),dat(strcmpi(g,'last 2s sum')));
+W_sr_BilaSum(3,2) = stats.signedrank;
+[p_sr_BilaSum(3,3),~,stats] = signrank(dat(strcmpi(g,'full bilat')),dat(strcmpi(g,'full sum')));
+W_sr_BilaSum(3,3) = stats.signedrank;
 
 end
 
