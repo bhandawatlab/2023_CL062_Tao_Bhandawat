@@ -3,8 +3,9 @@
 
 # 2023_CL062_Tao_Bhandawat
 
-2023_CL062_Tao_Bhandawat contains the MATLAB code that accompanies the paper: "Neurons underlying aggression-like actions that are shared by both males and females in *Drosophila*." - JNeurosci 2024
+2023_CL062_Tao_Bhandawat contains the code that accompanies the paper: 
 
+Tao L, Ayembem D, Barranca VJ, Bhandawat V (2024) Neurons underlying aggression-like actions that are shared by both males and females in *Drosophila*. The Journal of Neuroscience.doi: https://doi.org/10.1523/JNEUROSCI.0142-24.2024
 
 ## Getting Started
 **There are 3 folders:**
@@ -79,7 +80,7 @@ The DeepLabCut models can be found here [DLC](https://www.dropbox.com/scl/fo/2wn
 <br/>
 **Note 2:** The figures for each of the WalkingChamberCodeBase, DMDCodeBase, and Connectomics analysis will be located in their respective Figures subfolder.
 
-## Authors and Citation
+## Authors
 
 Code by Liangyu Tao [lt532@drexel.edu](mailto:lt532@drexel.edu)
 
