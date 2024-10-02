@@ -5,7 +5,7 @@
 
 2023_CL062_Tao_Bhandawat contains the code that accompanies the paper: 
 
-Tao L, Ayembem D, Barranca VJ, Bhandawat V (2024) Neurons underlying aggression-like actions that are shared by both males and females in *Drosophila*. The Journal of Neuroscience.doi: https://doi.org/10.1523/JNEUROSCI.0142-24.2024
+Tao L, Ayembem D, Barranca VJ, Bhandawat V (2024) **Neurons underlying aggression-like actions that are shared by both males and females in *Drosophila*.** The Journal of Neuroscience; doi: https://doi.org/10.1523/JNEUROSCI.0142-24.2024
 
 ## Getting Started
 **There are 3 folders:**
