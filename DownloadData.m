@@ -1,6 +1,6 @@
 %% Download Datasets
 %% download and save the walking chamber dataset
-websave('WalkingChamber.zip','https://www.dropbox.com/scl/fi/2ttw3pfich0b2l16xaeyv/WalkingChamber.zip?rlkey=xt0i2a7d1ej5ojfqdn6e7tbs3&st=ebn5opas&dl=1');
+websave('WalkingChamber.zip','https://www.dropbox.com/scl/fi/6d94o2k25hb2qup10e9ih/WalkingChamber.zip?rlkey=898sc0dxy1xevj5nv5x0inyf1&st=5k81ukyr&dl=1');
 movefile WalkingChamber.zip Data.zip
 if ~exist('WalkingChamberCodeBase/Data', 'dir')
     mkdir(yourFolder)
@@ -9,7 +9,7 @@ unzip('Data.zip','WalkingChamberCodeBase/Data');
 disp("WalkingChamber Dataset Downloaded and Extracted");
 
 %% download and save the DMD dataset
-websave('DMD.zip','https://www.dropbox.com/scl/fi/7125p97desuoz2bpsspob/DMD.zip?rlkey=wlrvsiriwqnmcu6ansxus45lw&st=ig83f9p5&dl=1');
+websave('DMD.zip','https://www.dropbox.com/scl/fi/6rrish4pt7g91ltfgsx9r/DMD.zip?rlkey=65xvuq917hh3u7hm1cd9tds9b&st=zj6xcm14&dl=1');
 movefile DMD.zip Data.zip
 if ~exist('DMDCodeBase/Data', 'dir')
     mkdir(yourFolder)
@@ -18,7 +18,7 @@ unzip('Data.zip','DMDCodeBase/Data')
 disp("DMD Dataset Downloaded and Extracted");
 
 %% download and save the connectomics dataset
-websave('Connectomics.zip','https://www.dropbox.com/scl/fi/3xi95nxab0wow59rtm8s2/Connectomics.zip?rlkey=6pf7mocsym6iw0k0qtch67h24&st=ozdelvmv&dl=1');
+websave('Connectomics.zip','https://www.dropbox.com/scl/fi/lue7e5bihmjvo1fe5guv3/Connectomics.zip?rlkey=n8x5t3prownl1l0xs5crq00a7&st=dkkk10je&dl=1');
 movefile Connectomics.zip Data.zip
 if ~exist('Connectomics/Data', 'dir')
     mkdir(yourFolder)
